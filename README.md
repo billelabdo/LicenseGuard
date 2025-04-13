@@ -46,20 +46,13 @@ Self-Hosted – Keeps sensitive license data on your infrastructure
 
 "A company with 50+ software subscriptions uses LicenseGuard to track renewals. The system alerts their IT manager 90 days before expiry, preventing a $20K AutoCAD license lapse."
 
-## 📂 Repository Structure
-
-├── 📜 LicenseGuard.ps1          # Main monitoring script
-├── ⚙️ Schedule-LicenseGuard.ps1  # Task scheduler setup
-├── 📊 SoftwareLicenses.xlsx     # Sample license template
-├── 📄 README.md                # Setup/usage guide
-└── 📜 LICENSE                  # MIT License
 
 
 
 ## Usage
 
 ### Example: Daily automated execution
-```powershell .\schedule-license-monitor.ps1 -Time "09:00" -Force
+```powershell .\Schedule-LicenseGuard.ps1 -Time "09:00" -Force
 ### Manual Execution
 
 ```powershell
