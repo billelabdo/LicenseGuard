@@ -46,6 +46,15 @@ Self-Hosted – Keeps sensitive license data on your infrastructure
 
 "A company with 50+ software subscriptions uses LicenseGuard to track renewals. The system alerts their IT manager 90 days before expiry, preventing a $20K AutoCAD license lapse."
 
+## Rapport exemple 
+
+![image](https://github.com/user-attachments/assets/4bbadd47-51fa-411b-889a-4ccec01a9c3f)
+
+
+
+## Excel file SoftwareLicenses
+
+![image](https://github.com/user-attachments/assets/6fc989c8-1ebc-42f2-ba9c-3b285d4cf9bc)
 
 
 
