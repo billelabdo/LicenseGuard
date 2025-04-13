@@ -52,10 +52,9 @@ Self-Hosted – Keeps sensitive license data on your infrastructure
 ## Usage
 
 ### Example: Daily automated execution
-```powershell .\Schedule-LicenseGuard.ps1 -Time "09:00" -Force
-### Manual Execution
-
 ```powershell
-.\license-monitor.ps1
+.\Schedule-LicenseGuard.ps1 -Time "09:00" -Force
+
+
 
 
