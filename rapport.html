@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced License Monitoring System</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 30px 0;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 4px 6px var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .date {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        h2 {
+            font-size: 22px;
+            margin: 20px 0 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 18px;
+            margin: 15px 0 10px;
+            color: var(--secondary);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .card {
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 150px;
+            color: white;
+            box-shadow: 0 4px 6px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-expired {
+            background: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+        }
+        
+        .card-critical {
+            background: linear-gradient(135deg, var(--warning) 0%, #d35400 100%);
+        }
+        
+        .card-warning {
+            background: linear-gradient(135deg, var(--secondary) 0%, #2980b9 100%);
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .card-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .card-desc {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .priority-high {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .priority-medium {
+            color: var(--warning);
+            font-weight: bold;
+        }
+        
+        .priority-low {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .days-left {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .days-expired {
+            background-color: var(--danger);
+        }
+        
+        .days-critical {
+            background-color: var(--warning);
+        }
+        
+        .days-normal {
+            background-color: var(--success);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px var(--shadow);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .feature-title {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            color: var(--dark);
+            font-size: 14px;
+        }
+        
+        .print-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .print-btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .section {
+                box-shadow: none;
+                margin-bottom: 15px;
+                page-break-inside: avoid;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            header {
+                background: var(--primary);
+                box-shadow: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">Enhanced License Monitoring System</div>
+                <div class="date">Report Generated: April 14, 2025</div>
+            </div>
+        </header>
+        
+        <button class="print-btn" onclick="window.print()">Print Report</button>
+        
+        <section class="section">
+            <h1>Executive Summary</h1>
+            <p>
+                This report provides a comprehensive overview of the Enhanced License Monitoring System, a PowerShell script designed to monitor software license expiration dates, send email alerts, and generate detailed reports. The system incorporates robust security measures for credential management, advanced error handling, and performance optimizations to ensure reliable operation in enterprise environments.
+            </p>
+            
+            <div class="dashboard">
+                <div class="card card-expired">
+                    <div class="card-title">Expired Licenses</div>
+                    <div class="card-value">3</div>
+                    <div class="card-desc">Immediate action required</div>
+                </div>
+                <div class="card card-critical">
+                    <div class="card-title">Critical (≤30 days)</div>
+                    <div class="card-value">5</div>
+                    <div class="card-desc">Renewal needed soon</div>
+                </div>
+                <div class="card card-warning">
+                    <div class="card-title">Warning (≤90 days)</div>
+                    <div class="card-value">8</div>
+                    <div class="card-desc">Plan for renewal</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>License Status Overview</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            <th>Software</th>
+                            <th>Expiration Date</th>
+                            <th>Days Left</th>
+                            <th>Owner</th>
+                            <th>Cost</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="priority-high">High</td>
+                            <td>Adobe Photoshop</td>
+                            <td>15/10/2024</td>
+                            <td><span class="days-left days-expired">-5</span></td>
+                            <td>IT Dept</td>
+                            <td>500€</td>
+                            <td>Expired</td>
+                        </tr>
+                        <tr>
+                            <td class="priority-high">High</td>
+                            <td>Windows Server 2022</td>
+                            <td>10/10/2024</td>
+                            <td><span class="days-left days-expired">-10</span></td>
+                            <td>Server Admin</td>
+                            <td>1200€</td>
+                            <td>Expired</td>
+                        </tr>
+                        <tr>
+                            <td class="priority-high">High</td>
+                            <td>VMware vSphere</td>
+                            <td>12/04/2025</td>
+                            <td><span class="days-left days-expired">-2</span></td>
+                            <td>IT Infrastructure</td>
+                            <td>3500€</td>
+                            <td>Expired</td>
+                        </tr>
+                        <tr>
+                            <td class="priority-medium">Medium</td>
+                            <td>Microsoft Office</td>
+                            <td>20/05/2025</td>
+                            <td><span class="days-left days-critical">26</span></td>
+                            <td>HR Team</td>
+                            <td>300€</td>
+                            <td>Critical</td>
+                        </tr>
+                        <tr>
+                            <td class="priority-medium">Medium</td>
+                            <td>AutoCAD 2023</td>
+                            <td>05/05/2025</td>
+                            <td><span class="days-left days-critical">21</span></td>
+                            <td>Design Team</td>
+                            <td>1800€</td>
+                            <td>Critical</td>
+                        </tr>
+                        <tr>
+                            <td class="priority-medium">Medium</td>
+                            <td>SQL Server 2022</td>
+                            <td>10/06/2025</td>
+                            <td><span class="days-left days-critical">57</span></td>
+                            <td>Database Admin</td>
+                            <td>2500€</td>
+                            <td>Warning</td>
+                        </tr>
+                        <tr>
+                            <td class="priority-low">Low</td>
+                            <td>Atlassian Jira</td>
+                            <td>17/07/2025</td>
+                            <td><span class="days-left days-normal">94</span></td>
+                            <td>Project Management</td>
+                            <td>800€</td>
+                            <td>Normal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>System Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-title">License Expiration Monitoring</div>
+                    <p>Tracks software licenses and calculates days remaining until expiration.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">Automated Email Alerts</div>
+                    <p>Sends priority-based notifications (Critical/Warning/Expired) to stakeholders.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">Secure Credential Management</div>
+                    <p>Encrypts and stores SMTP credentials securely.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">HTML Reporting</div>
+                    <p>Generates modern, interactive HTML reports with visual indicators.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">Data Backup</div>
+                    <p>Automatically backs up the license database monthly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">Multi-language Support</div>
+                    <p>Currently configured for French but easily adaptable.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Email Functionality</h2>
+            <h3>How Emails Are Sent</h3>
+            <p>
+                <strong>SMTP Configuration:</strong> Uses SMTP server with TLS security.
+            </p>
+            <p>
+                <strong>Retry Mechanism:</strong> If email sending fails, the system retries up to 3 times with exponential backoff.
+            </p>
+            <p>
+                <strong>Email Content:</strong> Modern HTML template with days remaining (color-coded), license details (Software, Owner, Cost, Expiration Date), and action required section.
+            </p>
+            
+            <h3>Example Email Workflow</h3>
+            <ol>
+                <li>A license is detected as Critical (expiring in ≤30 days).</li>
+                <li>The system checks if an alert was already sent in the last 7 days (configurable).</li>
+                <li>If not, it generates an email and sends it to the configured recipients.</li>
+                <li>On success, it updates the LastEmail field in Excel.</li>
+            </ol>
+        </section>
+        
+        <section class="section">
+            <h2>Security Measures</h2>
+            <h3>Secure Credential Handling</h3>
+            <p>
+                <strong>Storage:</strong> SMTP credentials are encrypted using Export-Clixml and stored securely.
+            </p>
+            <p>
+                <strong>Access Control:</strong> The credential file has restricted permissions (only accessible by the executing user).
+            </p>
+            <p>
+                <strong>Memory Safety:</strong> Credentials are locked after use to prevent memory scraping.
+            </p>
+            
+            <h3>Input Validation</h3>
+            <ul>
+                <li>Email Addresses: Validates format using [mailaddress].</li>
+                <li>File Paths: Ensures paths are valid before processing.</li>
+                <li>Excel File: Verifies file type and structure.</li>
+            </ul>
+            
+            <h3>Error Handling</h3>
+            <ul>
+                <li>Logging: All actions and errors are logged in LicenseMonitor.log.</li>
+                <li>Graceful Failures: Critical errors (e.g., Excel COM failures) trigger script termination with logs.</li>
+                <li>Retry Logic: Email sending retries upon failure.</li>
+            </ul>
+        </section>
+        
+        <section class="section">
+            <h2>Configuration Options</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$BasePath</td>
+                        <td>Root directory for files.</td>
+                        <td>C:\ProgramData\LicenseMonitor</td>
+                    </tr>
+                    <tr>
+                        <td>$ExcelFilePath</td>
+                        <td>Path to the license Excel file.</td>
+                        <td>$BasePath\SoftwareLicenses.xlsx</td>
+                    </tr>
+                    <tr>
+                        <td>$FromAddress</td>
+                        <td>Sender email address.</td>
+                        <td>example@company.com</td>
+                    </tr>
+                    <tr>
+                        <td>$ToAddress</td>
+                        <td>Primary recipient.</td>
+                        <td>admin@company.com</td>
+                    </tr>
+                    <tr>
+                        <td>$WarningDays</td>
+                        <td>Days until expiration for "Warning" alerts.</td>
+                        <td>90</td>
+                    </tr>
+                    <tr>
+                        <td>$CriticalDays</td>
+                        <td>Days until expiration for "Critical" alerts.</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>$EnableReporting</td>
+                        <td>Whether to generate HTML reports.</td>
+                        <td>$true</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Email Frequency Control</h3>
+            <ul>
+                <li>Expired Licenses: Alerts every 7 days ($ExpiredFrequency).</li>
+                <li>Critical Licenses: Alerts every 7 days.</li>
+                <li>Warning Licenses: Alerts every 14 days ($WarningFrequency).</li>
+                <li>Normal Licenses: No alerts (only in report).</li>
+            </ul>
+        </section>
+        
+        <section class="section">
+            <h2>Conclusion</h2>
+            <p>
+                The Enhanced License Monitoring System provides a secure, automated solution for tracking software licenses, ensuring timely renewals, and maintaining compliance. Its key strengths include:
+            </p>
+            <ul>
+                <li>✅ Secure credential storage (encrypted XML).</li>
+                <li>✅ Professional email alerts (HTML templates with retry logic).</li>
+                <li>✅ Interactive reporting (dashboard-style HTML).</li>
+                <li>✅ Enterprise-ready (error handling, logging, backup).</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>© 2025 Company Name - Enhanced License Monitoring System</p>
+            <p>Generated on April 14, 2025</p>
+        </footer>
+    </div>
+</body>
+</html>
