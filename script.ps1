@@ -6,8 +6,8 @@
     Uses plain text credentials for SMTP authentication.
 .NOTES
     Version: 4.2
-    Author: Your Name
-    Last Updated: $(Get-Date -Format "yyyy-MM-dd")
+    Author: billel-eren
+    Last Updated: 19/04/2025
 #>
 
 # --- Configuration ---
